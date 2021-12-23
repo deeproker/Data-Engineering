@@ -74,7 +74,6 @@ tf.random.set_seed(42)
 
 # Create a model using the Sequential API
 model = tf.keras.Sequential([
-    tf.keras.layers.Dense(1), 
     tf.keras.layers.Dense(1)
     ])
 
@@ -84,7 +83,7 @@ model.compile(loss = tf.keras.losses.mae,
               metrics = ['mae'])
 
 # Fit the model
-model.fit(X_train, y_train, epochs=100)
+model.fit(X_train, y_train, epochs=50)
 
 
 # Make and plot predictions for model_1
