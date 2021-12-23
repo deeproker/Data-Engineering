@@ -15,7 +15,8 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # Your ML workflow goes here
-          cd Github-ML-pipeline-Demo
+          cd ./"Github-ML-pipeline-Demo"
+          echo "Changed Directory Successfully"
           pip install -r requirements.txt
           python model.py
           
