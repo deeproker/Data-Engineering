@@ -19,11 +19,11 @@ import time
 AIRFLOW_DB_NAME = 'airflow'
 FORUM_DB_NAME = 'ransomeware'
 CREDS_DB_NAME = 'creds'
-RS_HOST = 'data-warehouse.czf0ltb1d6ac.us-east-1.redshift.amazonaws.com'
+RS_HOST = 'data-warehouse.czfc.us-east-1.redshift.amazonaws.com'
 RS_PORT = '5439'
 # S3_EXPORT_PATH = 's3://i471-dev-creds-elasticsearch-data/in_progress'
 PROTECTION_TIME_GAP_IN_SECONDS = 600
-OS_HOST = 'vpc-merlin-h2p2ka4jduxskhb4fjetbznvbi.us-east-1.es.amazonaws.com'
+OS_HOST = 'vpc-merlin-h2p2ka4.us-east-1.es.amazonaws.com'
 
 psyclient = boto3.client('redshift')
 
