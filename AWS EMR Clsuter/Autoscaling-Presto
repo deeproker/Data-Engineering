@@ -1,0 +1,14 @@
+aws emr create-cluster \
+--name "emr-creds-presto-autoscale" \
+--release-label "emr-6.9.0" \
+--service-role "arn:aws:iam::352821864386:role/EMR-reducer-role" \
+--ec2-attributes '{"InstanceProfile":"EMR-reducer-role","EmrManagedMasterSecurityGroup":"sg-0f89ce8c19ac8553f","EmrManagedSlaveSecurityGroup":"sg-0f89ce8c19ac8553f","SubnetId":"subnet-0c2baae16f850022a"}' \
+--applications Name=Presto \
+--configurations '[{"Classification":"presto-connector-hive","Properties":{"hive.metastore.glue.datacatalog.enabled":"true"}}]' \
+--instance-groups '[{"InstanceGroupType":"MASTER","InstanceCount":1,"InstanceType":"m5.2xlarge","EbsConfiguration":{"EbsOptimized":true,"EbsBlockDeviceConfigs":[{"VolumeSpecification":{"VolumeType":"gp2","SizeInGB":32}}]}},{"InstanceGroupType":"CORE","InstanceCount":1,"BidPrice":"0.70","InstanceType":"c5.18xlarge","EbsConfiguration":{"EbsOptimized":true,"EbsBlockDeviceConfigs":[{"VolumeSpecification":{"VolumeType":"gp2","SizeInGB":32}}]},"AutoScalingPolicy":{"Constraints":{"MinCapacity":1,"MaxCapacity":10},"Rules":[{"Name":"ScaleOutOnHighCpu","Description":"Scale out when CPU exceeds 60%","Action":{"SimpleScalingPolicyConfiguration":{"AdjustmentType":"CHANGE_IN_CAPACITY","ScalingAdjustment":1,"CoolDown":300}},"Trigger":{"CloudWatchAlarmDefinition":{"ComparisonOperator":"GREATER_THAN","EvaluationPeriods":1,"MetricName":"CPUUtilization","Namespace":"AWS/EC2","Period":300,"Statistic":"AVERAGE","Threshold":60.0,"Unit":"PERCENT"}}}]}}]' \
+--scale-down-behavior "TERMINATE_AT_TASK_COMPLETION" \
+--ebs-root-volume-size "15" \
+--auto-termination-policy '{"IdleTimeout":3600}' \
+--os-release-label "2.0.20221210.1" \
+--auto-scaling-role "EMR_AutoScaling_DefaultRole" \
+--region "us-east-2"
